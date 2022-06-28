@@ -52,6 +52,12 @@ class DLite(Bot):
         await self.change_presence(activity = discord.Activity(type = discord.ActivityType.listening, name = guild_status))
         print("Active")
 
+    async def on_guild_join(self, guild):
+        guild_status = f"{len(self.guilds)} server" if len(self.guilds) == 1 else f"{len(self.guilds)} servers"
+
+        await self.change_presence(activity = discord.Activity(type = discord.ActivityType.listening, name = guild_status))
+        
+       
     async def on_command_error(self, ctx, exception):
         if isinstance(exception, CommandOnCooldown):
             await ctx.reply("You are being rate limited. Use the command again in `{}` seconds.".format(round(exception.retry_after)))
