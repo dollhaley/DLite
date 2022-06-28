@@ -210,6 +210,7 @@ class Commands(Cog):
     @slash_command(name = 'save', description = "Downloads from given URL with given format. Defaults to video.")
     @cooldown(1, 30, BucketType.user)
     async def video_dl(self, ctx, url: Option(str, "Video URL"), vidformat: Option(str, "Video format", choices = ['video', 'audio'], default = 'video')):
+            await ctx.defer()
             ydl = self.bot.mp4 if vidformat == 'video' else self.bot.mp3
 
             if any(pattern in url for pattern in patterns) == False:
